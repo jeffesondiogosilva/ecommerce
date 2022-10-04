@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,900;1,300&display=swap" rel="stylesheet">
+    <title>Document</title>
+
+    <style>
+        *{
+            font-family: 'Lato', sans-serif; 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        #produtos {
+            max-width: 900px;
+            margin: 0 auto;            
+            display: flex;
+            padding: 5%;
+            
+        }
+        #carrinho {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2%;
+            display: block;
+            margin-left: 20%;
+            color: white;
+        }
+
+        .produto-single {
+            width: 32%;
+            margin: 1%;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+        }
+
+        .produto-single img{
+            max-width: 100%;
+        }
+
+        .produto-single p{
+            text-align: center;
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        .produto-single a {
+            text-decoration: none;
+            color: white;
+            background-color: #5fb382;
+            text-align: center;
+            display: block;
+            padding: 4px;
+            font-size: 18px;
+        }
+
+        .info-single-checkout{
+            border-bottom: 2px dotted;
+            font-family: 'Lato', sans-serif;   
+            margin-right: 80px;                 
+
+        }
+
+        @media screen and (max-width: 768px) {
+            .produto-single{
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+
+        #vitrine{
+            background-color: #4c3282;
+            padding: 50px 0;
+            text-align: center;
+            color: white;
+        }
+
+        #titulo-carrinho{
+            background-color: #4c3282;            
+            text-align: right;            
+            color: white;
+            padding-right: 2%;
+        }
+
+        #icone-car{
+            background-color: rgb(245, 245, 5);            
+            color: #4c3282;
+            text-align: center;
+            width: 20%;
+            padding-right: 2%;
+            margin-left: 115%;
+        }
+        
+    </style>
+</head>
+<body>
+    <h2 id="titulo-carrinho">Carrinho</h2>
+    
+    <div id="carrinho">
+        
+    </div>
+    
+    
+    <h2 id="vitrine">Vitrine</h2>
+    <div id="produtos">
+        
+    </div>
+
+    <script>
+
+        const itens = [
+            { 
+                id: 0, 
+                nome: 'camiseta',
+                img: 'https://4429028l.ha.azioncdn.net/img/2020/06/produto/3007/camiseta-preta-basica.jpg?ims=800x800',
+                quantidade: 0
+            },
+            { 
+                id: 1,
+                nome: 'short',
+                img: 'https://images.tcdn.com.br/img/img_prod/589314/bermuda_nike_flx_short_woven_3_0_masculina_2293_1_85870e8b8acea7412048700365ba2638.jpg',
+                quantidade: 0
+            },
+            { 
+                id: 2,
+                nome: 'tenis',
+                img: 'https://images.puma.net/images/376522/50/sv01/fnd/BRA/',
+                quantidade: 0
+            }
+
+        ]
+
+        inicializarLoja = () =>{
+            var containerProdutos = document.getElementById('produtos');
+            itens.map((valor)=>{
+                containerProdutos.innerHTML += `
+
+
+                    <div class="produto-single">
+                        <img src="`+valor.img+`"/>
+                        <p>`+valor.nome+`</p>
+                        <a key="`+valor.id+`" href="#">Adicionar ao carrinho<a/>
+                    </div>
+                `;
+
+
+            })
+        }
+
+        inicializarLoja();
+
+        atualizarCarrinho = () => {
+
+            var containerCarrinho = document.getElementById('carrinho');
+            containerCarrinho.innerHTML = "";
+            itens.map((valor)=>{
+                if(valor.quantidade > 0){
+                
+                    containerCarrinho.innerHTML += `
+
+                        <div id="icone-car"> <a style="color: #4c3282;" href="pagamento.html">`+valor.quantidade+" - "+valor.nome+`</a></div>
+
+                        
+                        
+                    `;
+                }
+
+            })
+        }
+        
+        var links = document.getElementsByTagName('a');
+
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click',function (){
+                let key = this.getAttribute('key');
+                itens[key].quantidade++;
+                atualizarCarrinho();
+                return false;
+            })
+        }
+
+
+
+    </script>
+</body>
+</html>
